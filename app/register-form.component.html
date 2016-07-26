@@ -1,0 +1,37 @@
+<!--{{diagnostic}}-->
+<div class="container">
+    <h4>Rergister phone number</h4>
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+
+      <div class="form-group">
+        <label for="phonenumber">Phone number</label>
+        <input type="text" class="form-control" required
+            [(ngModel)]="model.phonenumber" name="phonenumber" #phonenumber="ngModel">
+      </div>
+
+      <div class="form-group">
+        <label for="etheraddress">Account</label>
+        <!--<select type="text" class="form-control" required  (change)="onSelectedAccount($event.target.value)"
+            [(ngModel)]="model.etheraddress" name="etheraddress" #etheraddress="ngModel">
+            <option *ngFor="let p of accounts" [value]="p">{{p}}</option>
+        </select>-->
+        <input type="text" class="form-control" required (change)="onSelectedAccount($event.target.value)"
+            [(ngModel)]="model.etheraddress" name="etheraddress" #etheraddress="ngModel">
+        <label [hidden]="!(phonenumber.valid && etheraddress.valid)" >Balance {{selectedAccountBalance}} Ether</label>
+      </div>
+
+      <div class="form-group" [hidden]="!(phonenumber.valid && etheraddress.valid && selectedAccountBalance > 0)" >
+        <label for="password">Password</label>
+        <input type="password" class="form-control" required
+            [(ngModel)]="model.password" name="password" #password="ngModel">
+      </div>
+      <div [hidden]="!(phonenumber.valid && etheraddress.valid && selectedAccountBalance == 0)" 
+            class="alert alert-danger" style="width: 50%">
+            Not enough Ether for the required action
+      </div>        
+
+      <button type="submit" class="btn btn-default"
+        [disabled]="!registerForm.form.valid || selectedAccountBalance == 0"
+        >Submit</button>
+    </form>
+</div>
