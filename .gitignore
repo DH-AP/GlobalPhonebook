@@ -1,0 +1,10 @@
+#ignore hidden files
+\.editorconfig
+\.dockerignore
+
+#ignore generated files
+dist
+
+#ignore local env folders
+typings
+node_modules
